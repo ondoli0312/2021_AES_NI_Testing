@@ -1,7 +1,6 @@
 #pragma once
 
 //AES_NI.c
-int Check_CPU_support_AES();
 void AES_256_Key_Expansion(const unsigned char* userkey, unsigned char* key);
 void AES_CBC_encrypt(const unsigned char* in,
 	unsigned char* out,

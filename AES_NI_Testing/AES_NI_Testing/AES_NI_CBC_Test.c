@@ -131,10 +131,10 @@ int AES_CBC_256_Test()
 	uint8_t* CIPHER_KEY;
 
 	int i, j, key_length;
-	if (!Check_CPU_support_AES()) {
+	/*if (!Check_CPU_support_AES()) {
 		printf("CPU does not support AES instruction set. Bailing out.\n");
 		return 1;
-	}
+	}*/
 	printf("CPU support AES instruction set. \n\n");
 
 #ifdef AES256
@@ -147,7 +147,11 @@ int AES_CBC_256_Test()
 	if (PLAINTEXT == NULL)
 		return -1;
 	CIPHERTEXT = (uint8_t*)malloc(LENGTH);
+	if (CIPHERTEXT == NULL)
+		return -1;
 	DECRYPTEDTEXT = (uint8_t*)malloc(LENGTH);
+	if (DECRYPTEDTEXT == NULL)
+		return -1;
 
 	for (i = 0; i < LENGTH/16/4; i++) {
 		for (j = 0; j < 4; j++) {
@@ -167,4 +171,46 @@ int AES_CBC_256_Test()
 	AES_CBC_encrypt(PLAINTEXT, CIPHERTEXT, CBC_IV, LENGTH, key.KEY, key.nr);
 	AES_CBC_decrypt(CIPHERTEXT, DECRYPTEDTEXT, CBC_IV, LENGTH, decrypt_key.KEY, decrypt_key.nr);
 
+	printf("%s\n", STR);
+	printf("The Cihper Key : \n");
+	print_m128i_with_string("", ((__m128i*)CIPHER_KEY)[0]);
+	if (key_length > 128)
+		print_m128i_with_string_short("", ((__m128i*)CIPHER_KEY)[1], (key_length / 8) - 16);
+	
+	printf("The Key Schedule : \n");
+	for (i = 0; i < key.nr; i++) 
+		print_m128i_with_string("", ((__m128i*)key.KEY)[i]);
+
+	printf("The PLAINTEXT : \n");
+	for (i = 0; i < LENGTH / 16; i++)
+		print_m128i_with_string("", ((__m128i*)PLAINTEXT)[i]);
+	if (LENGTH % 16)
+		print_m128i_with_string_short("", ((__m128i*)PLAINTEXT)[i], LENGTH % 16);
+
+	printf("\nThe CIPHERTEXT : \n");
+	for (i = 0; i < LENGTH / 16; i++)
+		print_m128i_with_string("", ((__m128i*)CIPHERTEXT)[i]);
+	if (LENGTH % 16)
+		print_m128i_with_string_short("", ((__m128i*)CIPHERTEXT)[i], LENGTH % 16);
+
+	for (i = 0; i < ((64 < LENGTH) ? 64 : LENGTH); i++) {
+		if (CIPHERTEXT[i] != EXPECTED_CIPHERTEXT[i % 64]) {
+			printf("The ciphertext is not equal to the expected ciphertext. \n\n");
+			return 1;
+		}
+	}
+	printf("\nThe CIPHERTEXT equals to the EXPECTED CIPHERTEXT for bytes where expected text was entered.\n\n");
+	for (i = 0; i < LENGTH; i++) {
+		if (DECRYPTEDTEXT[i] != PLAINTEXT[i % (16 * 4)]) {
+			printf("%x", DECRYPTEDTEXT[i]);
+			printf("The DECRYPTED TEXT is not equal to the original""PLAINTEXT. \n\n");
+			return 1;
+		}
+	}
+	printf("The DECRYPTED TEXT equals to the original PLAINTEXT. \n\n");
+}
+
+int main()
+{
+	AES_CBC_256_Test();
 }

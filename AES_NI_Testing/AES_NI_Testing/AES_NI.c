@@ -1,18 +1,6 @@
 #include <wmmintrin.h>
 #include "AES_NI.h"
 
-#define cpuid(func,ax,bx,cx,dx)\
-           __asm __volatile__ ("cpuid":\
-           "=a" (ax), "=b" (bx), "=c" (cx), "=d" (dx) : "a" (func)); 
-
-
-int Check_CPU_support_AES()
-{
-	unsigned int a, b, c, d;
-	cpuid(1, a, b, c, d);
-	return (c & 0x2000000);
-}
-
 inline __m128i AES_128_ASSIST(__m128i temp1, __m128i temp2) {
 	__m128i temp3;
 	temp2 = _mm_shuffle_epi32(temp2, 0xff);
