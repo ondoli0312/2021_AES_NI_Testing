@@ -1,0 +1,10 @@
+#pragma once
+#include <stdint.h>
+#include <stdio.h>
+#include <wmmintrin.h>
+#include <immintrin.h>
+#include <stdlib.h>
+#include <time.h>
+#include <Windows.h>
+#include <smmintrin.h>
+__int64 cpucycles();

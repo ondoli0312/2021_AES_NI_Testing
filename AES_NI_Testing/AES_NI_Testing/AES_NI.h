@@ -15,3 +15,5 @@ void AES_CBC_decrypt(const unsigned char* in,
 	unsigned long length,
 	unsigned char* key,
 	int number_of_rounds);
+
+void AESCBC256_Test();

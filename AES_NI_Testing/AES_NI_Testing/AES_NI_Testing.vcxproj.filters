@@ -21,12 +21,27 @@
     <ClCompile Include="AES_NI_CBC_Test.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="SHA_NI.c">
+    <ClCompile Include="SHA256_NI.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="function.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SHA160_NI.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AES_NI.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="type.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SHA256_NI.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SHA160_NI.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

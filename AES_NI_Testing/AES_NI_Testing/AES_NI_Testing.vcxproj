@@ -141,10 +141,15 @@
   <ItemGroup>
     <ClCompile Include="AES_NI.c" />
     <ClCompile Include="AES_NI_CBC_Test.c" />
-    <ClCompile Include="SHA_NI.c" />
+    <ClCompile Include="function.c" />
+    <ClCompile Include="SHA160_NI.c" />
+    <ClCompile Include="SHA256_NI.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AES_NI.h" />
+    <ClInclude Include="SHA160_NI.h" />
+    <ClInclude Include="SHA256_NI.h" />
+    <ClInclude Include="type.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,9 +1,8 @@
-#include <stdint.h>
-#include <stdio.h>
-#include <wmmintrin.h>
 #include "AES_NI.h"
+#include "type.h"
 #define AES256
 #define LENGTH 64
+
 #if !defined (ALIGN16)
 #	if defined(__GNUC__)
 #		define ALIGN16	__attribute__((aligned(16)))
@@ -210,7 +209,41 @@ int AES_CBC_256_Test()
 	printf("The DECRYPTED TEXT equals to the original PLAINTEXT. \n\n");
 }
 
-int main()
+void AES_256_CBC_Enc(uint8_t* pt, uint8_t* IV ,uint32_t ptLen, uint8_t* masterkey, uint8_t* out) {
+	AES_KEY key;
+	AES_set_encrypt_key(masterkey, 256, &key);
+	AES_CBC_encrypt(pt, out, IV, ptLen, key.KEY, key.nr);
+
+}
+uint8_t pt[1024 * 1024];
+uint8_t out[1024 * 1024];
+void AESCBC256_Test()
 {
-	AES_CBC_256_Test();
+	//AES_CBC_256_Test();
+	srand(time(NULL));
+	uint8_t IV[16];
+
+	unsigned long long cycle1 = 0;
+	unsigned long long cycle2 = 0;
+	unsigned long long result = 0;
+	for (int i = 0; i < 10000; i++) {
+		for (int j = 0; j < 16; j++) {
+			IV[j] = rand() % 0x100;
+		}
+		for (int j = 0; j < 1024 * 1024; j++) {
+			pt[j] = rand() % 0x100;
+		}
+		cycle1 = cpucycles();
+		AES_256_CBC_Enc(pt, IV, 1024 * 1024, AES256_TEST_KEY, out);
+		cycle2 = cpucycles();
+		result += cycle2 - cycle1;
+	}
+	for (int j = 0; j < 1024 * 1024; j++) {
+		if (((j) % 16) == 0)
+			printf("\n");
+		printf("%02X ", out[j]);
+	}
+	printf("\n");
+	printf("AES Encryption RDTSC = %10lld\n", ((result) / 10000));
+	
 }

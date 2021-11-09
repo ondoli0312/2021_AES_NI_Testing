@@ -1,6 +1,5 @@
-#include <wmmintrin.h>
 #include "AES_NI.h"
-
+#include "type.h"
 inline __m128i AES_128_ASSIST(__m128i temp1, __m128i temp2) {
 	__m128i temp3;
 	temp2 = _mm_shuffle_epi32(temp2, 0xff);
