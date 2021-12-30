@@ -30,6 +30,12 @@
     <ClCompile Include="SHA160_NI.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="SHA512.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="sha512_compress_x86_64_avx.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AES_NI.h">
@@ -42,6 +48,21 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="SHA160_NI.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="sha512_defs.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="sha.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="defs.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="avx2_defs.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="constant.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
